@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I COST</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Tenor+Sans&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1A1A18;
+  --paper: #F7F5F0;
+  --warm: #EFECE5;
+  --mid: #C8C4BC;
+  --muted: #9A9690;
+  --faint: #E8E4DC;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Cormorant Garamond', serif;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 64px;
+  background: rgba(247,245,240,0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s;
+}
+nav.scrolled { border-color: var(--faint); }
+
+.nav-logo {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.28em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex; gap: 48px; list-style: none;
+}
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--ink); }
+
+/* HERO */
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 100px;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 80px 64px;
+  border-right: 1px solid var(--faint);
+}
+
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 64px;
+  gap: 0;
+}
+
+.hero-overline {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.2s ease forwards;
+}
+
+.hero-wordmark {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: clamp(72px, 10vw, 130px);
+  letter-spacing: 0.14em;
+  line-height: 0.95;
+  color: var(--ink);
+  opacity: 0;
+  animation: fadeUp 0.9s 0.4s ease forwards;
+}
+
+.hero-tagline {
+  font-size: clamp(17px, 1.8vw, 22px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-top: 40px;
+  max-width: 320px;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.7s ease forwards;
+}
+
+.hero-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.5s ease forwards;
+}
+
+.hero-meta-item {
+  border-top: 1px solid var(--faint);
+  padding-top: 20px;
+}
+
+.hmi-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--mid);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.hmi-value {
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+/* DIVIDER */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--faint);
+}
+
+/* SECTION BASE */
+.s-pad { padding: 100px 64px; }
+.s-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 60px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.s-label span {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--mid);
+  flex-shrink: 0;
+}
+
+/* CONCEPT */
+#concept {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 0;
+  border-top: 1px solid var(--faint);
+}
+
+.concept-left {
+  padding: 100px 64px;
+  border-right: 1px solid var(--faint);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.concept-heading {
+  font-size: clamp(34px, 3.5vw, 52px);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin-top: 48px;
+}
+
+.concept-right {
+  padding: 100px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+}
+
+.concept-right p {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--muted);
+}
+.concept-right p strong { color: var(--ink); font-weight: 400; }
+
+/* PULL QUOTE */
+#pullquote {
+  padding: 120px 64px;
+  border-top: 1px solid var(--faint);
+  border-bottom: 1px solid var(--faint);
+  background: var(--warm);
+}
+
+.pq-inner {
+  max-width: 820px;
+}
+
+.pq-text {
+  font-size: clamp(30px, 4vw, 56px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.25;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  margin-bottom: 40px;
+}
+
+.pq-source {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--mid);
+  text-transform: uppercase;
+}
+
+/* LOGO */
+#logo {
+  padding: 100px 64px;
+  border-bottom: 1px solid var(--faint);
+}
+
+.logo-variants {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--faint);
+  margin-top: 0;
+  border: 1px solid var(--faint);
+}
+
+.lv-card {
+  background: var(--paper);
+  padding: 64px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  transition: background 0.35s;
+}
+.lv-card:hover { background: var(--warm); }
+
+.lv-mark {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 36px;
+  letter-spacing: 0.16em;
+  line-height: 1;
+}
+
+.lv-dark { background: var(--ink); }
+.lv-dark:hover { background: #222220; }
+.lv-dark .lv-mark { color: var(--paper); }
+.lv-dark .lv-price { color: rgba(247,245,240,0.2); }
+.lv-dark .lv-label { color: rgba(247,245,240,0.2); }
+
+.lv-price {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--mid);
+}
+
+.lv-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-top: 20px;
+}
+
+/* GARMENT */
+#garment {
+  background: var(--warm);
+  border-bottom: 1px solid var(--faint);
+}
+
+.garment-inner { padding: 100px 64px; }
+
+.garment-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--faint);
+  border: 1px solid var(--faint);
+  margin-top: 0;
+}
+
+.gl-item {
+  background: var(--paper);
+  padding: 52px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
+  transition: background 0.3s;
+}
+.gl-item:hover { background: #F0EDE6; }
+
+.gl-top {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--mid);
+  text-transform: uppercase;
+}
+
+.gl-bottom { display: flex; flex-direction: column; gap: 6px; }
+
+.gl-name {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  line-height: 1;
+}
+.gl-price {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.gl-detail {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--mid);
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+/* MANIFESTO */
+#manifesto {
+  padding: 100px 64px;
+  border-bottom: 1px solid var(--faint);
+  max-width: 1000px;
+}
+
+.mf-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--faint);
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.mf-line:last-child { border-bottom: none; }
+
+.mf-line::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 1px;
+  background: var(--ink);
+  transition: width 0.5s ease;
+}
+.mf-line:hover::after { width: 100%; }
+
+.mf-text {
+  font-size: clamp(20px, 2.5vw, 36px);
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+  transition: color 0.3s;
+}
+.mf-line:hover .mf-text { color: var(--ink); }
+.mf-accent .mf-text { color: var(--ink) !important; font-style: italic; }
+
+.mf-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--faint);
+  flex-shrink: 0;
+  transition: color 0.3s;
+}
+.mf-line:hover .mf-num { color: var(--mid); }
+
+/* COPY */
+#copy {
+  border-bottom: 1px solid var(--faint);
+}
+
+.copy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--faint);
+}
+
+.cb {
+  background: var(--paper);
+  padding: 52px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transition: background 0.3s;
+}
+.cb:hover { background: var(--warm); }
+
+.cb-dark {
+  background: var(--ink);
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  padding: 64px;
+}
+.cb-dark:hover { background: #222220; }
+
+.cb-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--mid);
+  text-transform: uppercase;
+}
+.cb-dark .cb-label { color: rgba(247,245,240,0.2); }
+
+.cb-text {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.cb-text strong { color: var(--ink); font-weight: 400; }
+
+.cb-dark .cb-text { color: rgba(247,245,240,0.45); }
+.cb-dark .cb-text strong { color: var(--paper); font-weight: 400; }
+
+.cb-ghost {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 80px;
+  letter-spacing: 0.16em;
+  color: rgba(247,245,240,0.04);
+  line-height: 1;
+  text-align: right;
+}
+
+/* FOOTER */
+footer {
+  padding: 48px 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.f-logo {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.24em;
+  color: var(--mid);
+}
+
+.f-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--faint);
+  text-transform: uppercase;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 24px 28px; }
+  .nav-links { display: none; }
+  #hero, #concept { grid-template-columns: 1fr; }
+  .hero-left, .hero-right { padding: 60px 28px; border: none; }
+  .concept-left, .concept-right { padding: 60px 28px; border: none; }
+  .s-pad, .garment-inner, #logo, #manifesto { padding: 60px 28px; }
+  #pullquote { padding: 80px 28px; }
+  .logo-variants, .garment-list, .copy-grid { grid-template-columns: 1fr; }
+  .cb-dark { grid-column: span 1; grid-template-columns: 1fr; gap: 32px; }
+  footer { padding: 36px 28px; flex-direction: column; gap: 16px; }
+  #copy { border-bottom: 1px solid var(--faint); }
+  .cb { padding: 40px 28px; }
+  .cb-dark { padding: 40px 28px; }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#hero" class="nav-logo">I COST</a>
+  <ul class="nav-links">
+    <li><a href="#concept">Концепт</a></li>
+    <li><a href="#logo">Лого</a></li>
+    <li><a href="#manifesto">Маніфест</a></li>
+    <li><a href="#copy">Комунікація</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-overline">Brand Presentation · 2025</p>
+    <h1 class="hero-wordmark">I<br>COST</h1>
+    <p class="hero-tagline">Luxury with no apologies. Wear the price. Own the statement.</p>
+  </div>
+  <div class="hero-right">
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hmi-label">Категорія</div>
+        <div class="hmi-value">Одяг. Преміум-сегмент.</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hmi-label">Аудиторія</div>
+        <div class="hmi-value">25–40. Є гроші і впевненість.</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hmi-label">Концепція</div>
+        <div class="hmi-value">Ціна на виробі — як частина дизайну.</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hmi-label">Позиція</div>
+        <div class="hmi-value">Quiet luxury. No shame. No filter.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPT -->
+<section id="concept">
+  <div class="concept-left">
+    <div class="s-label reveal"><span></span>Концепція</div>
+    <h2 class="concept-heading reveal" style="transition-delay:0.1s">Ціна —<br>частина<br>виробу</h2>
+  </div>
+  <div class="concept-right">
+    <p class="reveal">Люди купують статус відтоді, як існує торгівля. Вони обирають певні речі — не тому що вони зручніші. Тому що вони <strong>дорожчі</strong>.</p>
+    <p class="reveal" style="transition-delay:0.1s">Це не слабкість. Це людська природа. Але всі роблять вигляд, що це не так.</p>
+    <p class="reveal" style="transition-delay:0.2s"><strong>I COST не приховує ціну. I COST робить її частиною виробу.</strong> На кожній речі — назва і вартість. Видно. Відкрито. Без вибачень.</p>
+    <p class="reveal" style="transition-delay:0.3s">Це не зухвалість — це чесність.</p>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<section id="pullquote">
+  <div class="pq-inner">
+    <p class="pq-text reveal">"Ціну завжди знали всі.<br>Тепер вона — частина виробу."</p>
+    <p class="pq-source reveal" style="transition-delay:0.15s">— I COST Brand Manifesto</p>
+  </div>
+</section>
+
+<!-- LOGO -->
+<section id="logo" class="s-pad">
+  <div class="s-label reveal"><span></span>Логотип</div>
+  <div class="logo-variants reveal" style="transition-delay:0.1s">
+    <div class="lv-card lv-dark">
+      <div class="lv-mark">I COST</div>
+      <div class="lv-price">$450</div>
+      <div class="lv-label">Main · Digital</div>
+    </div>
+    <div class="lv-card">
+      <div class="lv-mark">I COST</div>
+      <div class="lv-price" style="color:var(--mid);">$450</div>
+      <div class="lv-label">Light · Print</div>
+    </div>
+    <div class="lv-card" style="background:var(--warm);">
+      <div class="lv-mark" style="color:var(--ink); opacity:0.35;">I COST</div>
+      <div class="lv-price" style="color:var(--mid);">$450</div>
+      <div class="lv-label">Tone-on-tone · Emboss</div>
+    </div>
+  </div>
+</section>
+
+<!-- GARMENT -->
+<section id="garment">
+  <div class="garment-inner">
+    <div class="s-label reveal"><span></span>На виробі</div>
+    <div class="garment-list reveal" style="transition-delay:0.1s">
+      <div class="gl-item">
+        <div class="gl-top">Oversized Tee · 001</div>
+        <div class="gl-bottom">
+          <div class="gl-name">I COST</div>
+          <div class="gl-price">$420</div>
+          <div class="gl-detail">Chest · Embroidery</div>
+        </div>
+      </div>
+      <div class="gl-item">
+        <div class="gl-top">Premium Hoodie · 002</div>
+        <div class="gl-bottom">
+          <div class="gl-name">I COST</div>
+          <div class="gl-price">$680</div>
+          <div class="gl-detail">Woven Label · Front</div>
+        </div>
+      </div>
+      <div class="gl-item" style="background:var(--ink);">
+        <div class="gl-top" style="color:rgba(247,245,240,0.2);">Limited Drop · 003</div>
+        <div class="gl-bottom">
+          <div class="gl-name" style="color:var(--paper);">I COST</div>
+          <div class="gl-price" style="color:rgba(247,245,240,0.3);">$1,200</div>
+          <div class="gl-detail" style="color:rgba(247,245,240,0.15);">Tone-on-tone · 50 Units</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section id="manifesto" class="s-pad">
+  <div class="s-label reveal"><span></span>Маніфест</div>
+  <div class="mf-line reveal">
+    <span class="mf-text">Вартість завжди була видна</span><span class="mf-num">01</span>
+  </div>
+  <div class="mf-line reveal" style="transition-delay:0.07s">
+    <span class="mf-text">Просто ніхто не мав сміливості написати її</span><span class="mf-num">02</span>
+  </div>
+  <div class="mf-line mf-accent reveal" style="transition-delay:0.14s">
+    <span class="mf-text">I COST пише</span><span class="mf-num">03</span>
+  </div>
+  <div class="mf-line reveal" style="transition-delay:0.21s">
+    <span class="mf-text">No secrets. No shame. No excuses.</span><span class="mf-num">04</span>
+  </div>
+  <div class="mf-line reveal" style="transition-delay:0.28s">
+    <span class="mf-text">Luxury with no apologies.</span><span class="mf-num">05</span>
+  </div>
+</section>
+
+<!-- COPY -->
+<section id="copy">
+  <div class="copy-grid">
+    <div class="cb reveal">
+      <div class="cb-label">Hero tagline</div>
+      <div class="cb-text"><strong>Wear the price.<br>Own the statement.</strong></div>
+    </div>
+    <div class="cb reveal" style="transition-delay:0.08s">
+      <div class="cb-label">Sub-tagline</div>
+      <div class="cb-text"><strong>No secret.<br>No shame.<br>Just the number.</strong></div>
+    </div>
+    <div class="cb reveal" style="transition-delay:0.08s">
+      <div class="cb-label">About</div>
+      <div class="cb-text">I COST — одяг для тих хто не пояснює. <strong>На кожній речі — ціна.</strong> Видно. Відкрито. Без слів.</div>
+    </div>
+    <div class="cb reveal" style="transition-delay:0.16s">
+      <div class="cb-label">Drop announcement</div>
+      <div class="cb-text">Drop 001. <strong>Обмежено.</strong> Кожна річ пронумерована. Ціна вшита. Питань немає.</div>
+    </div>
+    <div class="cb cb-dark reveal">
+      <div>
+        <div class="cb-label">Instagram Bio</div>
+        <div class="cb-text" style="margin-top:20px; font-size:19px; line-height:1.65;">
+          <strong>I COST.</strong><br>
+          Luxury with no apologies.<br>
+          Limited drops. No restocks.<br><br>
+          <span style="font-family:'DM Mono',monospace; font-size:12px; letter-spacing:0.12em; color:rgba(247,245,240,0.3);">icost.world</span>
+        </div>
+      </div>
+      <div class="cb-ghost">I COST</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">I COST</div>
+  <div class="f-note">Brand Presentation · 2025 · Confidential</div>
+  <div class="f-note">icost.world</div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
